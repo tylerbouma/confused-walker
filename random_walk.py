@@ -12,7 +12,9 @@ class Grid:
 
     def print_grid(self):
         for v in self.grid:
-            print(v)
+            for b in v:
+                print(b, end='')
+            print("")
 
 directions = ['N', 'S', 'E', 'W']
 
@@ -84,7 +86,7 @@ def reset_grid(grid):
         for j in range(len(grid[i])):
             grid[i][j] = 0
 
-g = Grid(50)
+g = Grid(100)
 g.make_grid()
 walk(g.grid)
 g.print_grid()
