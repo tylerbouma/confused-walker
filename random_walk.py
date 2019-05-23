@@ -27,7 +27,7 @@ def walk(grid):
     # keep going as long as you haven't hit one of the opposite edges
     while position[0] != len(grid)-1 and position[1] != len(grid[0])-1:
         # mark the current block as visited if we moved
-        if moved is True:
+        if moved == True:
             grid[position[0]][position[1]] += 1
             moved = False
         if position[0] == 0 or position[1] == 0:
@@ -43,7 +43,6 @@ def walk(grid):
                 avail_dirs = directions.copy()
                 moved = True
             else:
-                # remove this option for the next move
                 avail_dirs.remove('N')
         elif move is 'S':
             if grid[position[0]+1][position[1]] != 1:
@@ -51,7 +50,6 @@ def walk(grid):
                 avail_dirs = directions.copy()
                 moved = True
             else:
-                # remove this option for the next move
                 avail_dirs.remove('S')
         elif move is 'E':
             if grid[position[0]][position[1]+1] != 1:
@@ -59,7 +57,6 @@ def walk(grid):
                 avail_dirs = directions.copy()
                 moved = True
             else:
-                # remove this option for the next move
                 avail_dirs.remove('E')
         elif move is 'W':
             if grid[position[0]][position[1]-1] != 1:
@@ -71,11 +68,11 @@ def walk(grid):
                 avail_dirs.remove('W')
         # if we have tried to move every way reset the grid
         if not avail_dirs:
-            print("resetting")
             position=[0,0]
             reset_grid(grid)
             try_attempts+=1
             avail_dirs = directions.copy()
+            moved = True
     
     grid[position[0]][position[1]] += 1
     print("Exited at %d, %d" % (position[0], position[1]))
@@ -83,12 +80,11 @@ def walk(grid):
 
 def reset_grid(grid):
     # reset all items on the grid to 0
-    for i in grid:
-        for j in i:
-            i[j] = 0
+    for i in range(len(grid)):
+        for j in range(len(grid[i])):
+            grid[i][j] = 0
 
-g = Grid(20)
+g = Grid(50)
 g.make_grid()
-print('\n')
 walk(g.grid)
 g.print_grid()
